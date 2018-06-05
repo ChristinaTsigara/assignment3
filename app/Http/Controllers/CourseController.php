@@ -14,7 +14,11 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+      $courses = Course::all();
+
+      return view("courses.index", [
+          "courses" => $courses
+      ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view("courses.create");
     }
 
     /**
@@ -35,51 +39,83 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      try {
+          $course = new Course;
+          $course->name = $request->name;
+          $course->short_name = $request->short_name;
+          $course->save();
+      }
+      catch(\Exception $e) {
+          // return redirect()->route('courses.index');
+          return redirect()->route('courses.create');
+      }
+
+      // return redirect()->route('courses.show', ['id' => $course->id]);
+      return redirect()->route('courses.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show($id)
     {
-        //
+      $course = Course::find($id);
+      return view("courses.show", [
+          "course" => $course
+      ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit($id)
     {
-        //
+      $course = Course::find($id);
+      return view("courses.edit", [
+          "course" => $course
+      ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, $id)
     {
-        //
+      try {
+          $course = Course::find($id);
+          $course->name = $request->name;
+          $course->short_name = $request->short_name;
+          $course->save();
+      }
+      catch(\Exception $e) {
+          // return redirect()->route('courses.index');
+          return redirect()->route('courses.edit', ['id' => $id]);
+      }
+
+      return redirect()->route('courses.show', ['id' => $id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy($id)
     {
-        //
+      $course = Course::find($id);
+      $course->delete();
+
+      return redirect()->route('courses.index');
     }
 }
