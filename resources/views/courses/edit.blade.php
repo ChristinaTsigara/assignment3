@@ -29,7 +29,7 @@
             <label for="">Förkortat namn:</label>
           </div>
           <div class="col-md-10">
-            <input type="number" step="any" name="seats" value="{{ $course->short_name }}" required>
+            <input type="text" step="any" name="short_name" value="{{ $course->short_name }}" required>
           </div>
         </div>
         <input button class="button updatebutton" type="submit" name="submit" value="Uppdatera"></button>

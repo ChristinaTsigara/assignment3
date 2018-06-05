@@ -21,7 +21,7 @@
             <label for="">Förnamn:</label>
           </div>
           <div class="col-md-10">
-              <input type="text" step="any" name="name" value="{{ $student->first_name }}" required>
+              <input type="text" step="any" name="first_name" value="{{ $student->first_name }}" required>
           </div>
         </div>
 
@@ -30,7 +30,7 @@
             <label for="">Efternamn:</label>
           </div>
           <div class="col-md-10">
-              <input type="text" step="any" name="name" value="{{ $student->last_name }}" required>
+              <input type="text" step="any" name="last_name" value="{{ $student->last_name }}" required>
           </div>
         </div>
 
@@ -39,7 +39,7 @@
             <label for="">Email:</label>
           </div>
           <div class="col-md-10">
-            <input type="email" step="any" name="email" value="{{ $student->seats }}" required>
+            <input type="email" step="any" name="email" value="{{ $student->email }}" required>
           </div>
         </div>
         <input button class="button updatebutton" type="submit" name="submit" value="Uppdatera"></button>
