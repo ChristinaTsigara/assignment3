@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Program;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -28,7 +29,10 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view("courses.create");
+        return view("courses.create", [
+          "programs" => Program::All()
+        ]);
+
     }
 
     /**
@@ -43,6 +47,7 @@ class CourseController extends Controller
           $course = new Course;
           $course->name = $request->name;
           $course->short_name = $request->short_name;
+          $course->program_id = $request->program_id;
           $course->save();
       }
       catch(\Exception $e) {
@@ -78,7 +83,9 @@ class CourseController extends Controller
     {
       $course = Course::find($id);
       return view("courses.edit", [
-          "course" => $course
+          "course" => $course,
+          "programs" => Program::All()
+
       ]);
     }
 
@@ -95,6 +102,7 @@ class CourseController extends Controller
           $course = Course::find($id);
           $course->name = $request->name;
           $course->short_name = $request->short_name;
+          $course->program_id = $request->program_id;
           $course->save();
       }
       catch(\Exception $e) {
